@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EAirConditioning, ECarsShiftType } from '../enums/cars.enum';
+import { generateGuidId } from '../functions/GUID';
 import { ICar } from '../models/cars.model';
 
 @Injectable({
@@ -8,6 +9,7 @@ import { ICar } from '../models/cars.model';
 export class CarsService {
   listOfCars: ICar[] = [
     {
+      id: generateGuidId(),
       imgSrc: '../../../assets/images/cars/1.png',
       name: 'Mercedes GLS 2022',
       isAirConditioning: EAirConditioning.YES,
@@ -16,6 +18,8 @@ export class CarsService {
       city: 'alexandria',
     },
     {
+      id: generateGuidId(),
+
       imgSrc: '../../../assets/images/cars/3.png',
       name: 'Mercedes V Class 2022',
       isAirConditioning: EAirConditioning.NO,
@@ -24,6 +28,8 @@ export class CarsService {
       city: 'giza',
     },
     {
+      id: generateGuidId(),
+
       imgSrc: '../../../assets/images/cars/2.png',
       name: 'Maybach Mercedes',
       isAirConditioning: EAirConditioning.YES,
@@ -32,6 +38,8 @@ export class CarsService {
       city: 'cairo',
     },
     {
+      id: generateGuidId(),
+
       imgSrc: '../../../assets/images/cars/4.png',
       name: 'Mercedes E Class 2022',
       isAirConditioning: EAirConditioning.YES,
@@ -40,6 +48,7 @@ export class CarsService {
       city: 'alexandria',
     },
     {
+      id: generateGuidId(),
       imgSrc: '../../../assets/images/cars/5.png',
       name: 'BMW x7 2022',
       isAirConditioning: EAirConditioning.NO,
@@ -53,6 +62,7 @@ export class CarsService {
 
   add({ name, price, imgSrc, isAirConditioning, shiftType, city }: ICar) {
     this.listOfCars.push({
+      id: generateGuidId(),
       name,
       price,
       imgSrc,
@@ -64,6 +74,13 @@ export class CarsService {
 
   getAll() {
     return this.listOfCars;
+  }
+  getOne(carId: string): ICar | string {
+    let car = this.listOfCars.find((c) => c.id === carId);
+
+    if (car) return car;
+
+    return `car with id ${carId} not found`;
   }
 
   filteration(filter: {
@@ -89,7 +106,4 @@ export class CarsService {
       return null;
     });
   }
-
-  
-  
 }
