@@ -5,7 +5,6 @@ import { CarsService } from '../../shared/services/cars.service';
 import { ICar } from '../../shared/models/cars.model';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CitiesService } from '../../shared/services/cities.service';
-import { ICity } from '../../shared/models/cities.model';
 import { ESortTypes } from '../../shared/enums/cars.enum';
 
 @Component({
@@ -14,8 +13,7 @@ import { ESortTypes } from '../../shared/enums/cars.enum';
   styleUrls: ['./plan-a-trip.component.scss'],
 })
 export class PlanATripComponent implements OnInit {
-  minValue: number = 20;
-  maxValue: number = 100;
+  //#region Price Slider Config Code
   options: Options = {
     floor: 20,
     ceil: 100,
@@ -23,19 +21,16 @@ export class PlanATripComponent implements OnInit {
       return `<small style="font-size: 12px;">USD</small>` + value.toFixed(2);
     },
   };
-
-  logPrice() {
-    console.log(this.maxValue, this.minValue);
-  }
+  //#endregion Price Slider Config  Code
 
   filterForm!: FormGroup;
-
   constructor(
     private modalService: NgbModal,
     private _carsService: CarsService,
     private _fb: FormBuilder,
     private _citiesService: CitiesService
   ) {
+    //#region Build Filter Form
     this.filterForm = this._fb.group({
       price: [[20, 100]],
       airConditioning: this._fb.array([
@@ -60,6 +55,7 @@ export class PlanATripComponent implements OnInit {
         }),
       ]),
     });
+    //#endregion Build Filter Form
   }
   get cities() {
     return this.filterForm.controls['cities'] as FormArray;
@@ -72,8 +68,11 @@ export class PlanATripComponent implements OnInit {
     return this.filterForm.controls['shiftType'] as FormArray;
   }
 
-  addCityForm({ selected, name }: { name: string; selected: boolean }) {
-    this.cities.push(this._fb.group({ name, selected }) as FormGroup);
+  getAllCities() {
+    let listOfCities = this._citiesService.getAll();
+    listOfCities.forEach(({ name }) => {
+      this.cities.push(this._fb.group({ name, selected: false }) as FormGroup);
+    });
   }
 
   resetForm() {
@@ -86,39 +85,25 @@ export class PlanATripComponent implements OnInit {
     this.airConditioning.controls.forEach((element) => {
       element.get('selected')?.setValue(false);
     });
+    this.filterForm.get('price')?.setValue([20, 100]);
   }
 
   filteration = () => {
-    let cities: string[] = this.cities.value
-      .map((car: any) => {
-        return car.selected ? car.name : '';
-      })
-      .filter((e: string) => e);
-    let airConditioning: string[] = this.airConditioning.value
-      .map((car: any) => {
-        return car.selected ? car.name : '';
-      })
-      .filter((e: string) => e);
-    let shiftType: string[] = this.shiftType.value
-      .map((car: any) => {
-        return car.selected ? car.name : '';
-      })
-      .filter((e: string) => e);
+    let cities: string[] = this.cities.value.map((car: any) =>
+      car.selected ? car.name : ''
+    );
 
-    console.log({
-      cities,
-      airConditioning,
-      shiftType,
-      price: {
-        min: this.filterForm.get('price')?.value[0],
-        max: this.filterForm.get('price')?.value[1],
-      },
-    });
+    let airConditioning: string[] = this.airConditioning.value.map((car: any) =>
+      car.selected ? car.name : ''
+    );
+    let shiftType: string[] = this.shiftType.value.map((car: any) =>
+      car.selected ? car.name : ''
+    );
 
     this.listOfCars = this._carsService.filteration({
-      cities,
-      airConditioning,
-      shiftType,
+      cities: cities.filter((e: string) => e),
+      airConditioning: airConditioning.filter((e: string) => e),
+      shiftType: shiftType.filter((e: string) => e),
       price: {
         min: this.filterForm.get('price')?.value[0],
         max: this.filterForm.get('price')?.value[1],
@@ -142,8 +127,8 @@ export class PlanATripComponent implements OnInit {
   }
 
   sortCars(sortType: ESortTypes) {
-    console.log({sortType});
-    
+    console.log({ sortType });
+
     switch (sortType) {
       case this.SortTypes.ALPHABET:
         this.listOfCars.sort(function compare(a: ICar, b: ICar) {
@@ -161,24 +146,12 @@ export class PlanATripComponent implements OnInit {
         break;
       case this.SortTypes.PRICE_L_2_H:
         this.listOfCars.sort(({ price: a }, { price: b }) => a - b);
-        break
-      default: return
+        break;
+      default:
+        return;
     }
-
-    // function priceHeightToLow() {}
-
-    // this.listOfCars.sort(({ price: a }, { price: b }) => a - b);
   }
-
-  listOfCities: ICity[] = [];
-  getAllCities() {
-    this.listOfCities = this._citiesService.getAll();
-    this.listOfCities.forEach(({ name }) => {
-      this.addCityForm({ name, selected: false });
-    });
-    console.log(this.filterForm.value);
-  }
-
+  //#region Add Car Modal Control Code
   closeResult = '';
   open(content: any) {
     this.modalService
@@ -205,4 +178,5 @@ export class PlanATripComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+  //#endregion Add Car Modal Control Code
 }
