@@ -1,0 +1,135 @@
+<app-topbar>
+    <button class="btn btn-light btn-topbar" (click)="open(content)">
+        <i class="fa fa-plus"></i>
+        add car
+    </button>
+</app-topbar>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-3">
+            <form [formGroup]="filterForm">
+                <button class="btn btn-link float-end btn-reset" (click)="resetForm()">
+                    reset all
+                </button>
+                <div class='clearfix'></div>
+                <div class='mb-3'>
+                    <button class="btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#dayRateFilter" aria-expanded="false" aria-controls="dayRateFilter">
+                        Average Day Rate
+                        <i class="fa fa-chevron-up"></i>
+                    </button>
+                    <div class="collapse show" id="dayRateFilter">
+                        <ngx-slider formControlName="price" [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (valueChange)="filteration()"></ngx-slider>
+                    </div>
+                </div>
+
+                <div class='mb-3'>
+                    <button class="btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#airConditionFilter" aria-expanded="false" aria-controls="airConditionFilter">
+                        Air Conditioning
+                        <i class="fa fa-chevron-up"></i>
+                    </button>
+                    <div class="collapse show" id="airConditionFilter">
+                        <ng-container formArrayName="airConditioning">
+                            <ng-container *ngFor="let airConditioningForm of airConditioning.controls; let index = index">
+                                <div class="form-check" [formGroupName]="index">
+                                    <input class="form-check-input" type="checkbox" (change)="filteration()" value="" id="airConditioning{{airConditioningForm.get('name')?.value}}" formControlName="selected">
+                                    <label class="form-check-label" for="airConditioning{{airConditioningForm.get('name')?.value}}">
+                                        {{airConditioningForm.get('name')?.value}}
+                                    </label>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+
+
+
+                <div class='mb-3'>
+                    <button class="btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#cityFilter" aria-expanded="false" aria-controls="cityFilter">
+                        City
+                        <i class="fa fa-chevron-up"></i>
+                    </button>
+                    <div class="collapse show" id="cityFilter">
+                        <ng-container formArrayName="cities">
+                            <ng-container *ngFor="let cityForm of cities.controls; let index = index">
+                                <div class="form-check" [formGroupName]="index">
+                                    <input class="form-check-input" type="checkbox" (change)="filteration()" value="" id="city{{cityForm.get('name')?.value}}" formControlName="selected">
+                                    <label class="form-check-label" for="city{{cityForm.get('name')?.value}}">
+                                        {{cityForm.get('name')?.value}}
+                                    </label>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+
+
+                <div class='mb-3'>
+                    <button class="btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#shiftFilter" aria-expanded="false" aria-controls="shiftFilter">
+                        Shift Type
+                        <i class="fa fa-chevron-up"></i>
+                    </button>
+                    <div class="collapse show" id="shiftFilter">
+                        <ng-container formArrayName="shiftType">
+                            <ng-container *ngFor="let shiftTypeForm of shiftType.controls; let index = index">
+                                <div class="form-check" [formGroupName]="index">
+                                    <input class="form-check-input" type="checkbox" (change)="filteration()" value="" id="shiftTypeForm{{shiftTypeForm.get('name')?.value}}" formControlName="selected">
+                                    <label class="form-check-label" for="shiftTypeForm{{shiftTypeForm.get('name')?.value}}">
+                                        {{shiftTypeForm.get('name')?.value}}
+                                    </label>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+            </form>
+            <!-- <button (click)="logFilter()">log</button> -->
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="input-group mb-3 border-0 col-md-4">
+                    <label class="input-group-text border-0 shadow" for="inputGroupSelect01">sort by</label>
+                    <select (change)="sortCars($event.target.value)" class="form-select border-0 shadow" id="inputGroupSelect01">
+                        <option selected>Choose</option>
+                        <option [value]='SortTypes.PRICE_H_2_L'> Price (high to low)
+                        </option>
+                        <option [value]='SortTypes.PRICE_L_2_H'> Price (low to high)
+                        </option>
+                        <option [value]='SortTypes.ALPHABET'>A to Z (alphabetically)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="card car-card border-0 shadow mb-4" *ngFor="let car of listOfCars">
+                <div class="card-body p-0">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <img src="{{car.imgSrc}}" />
+                        <div class="col-md-6">
+                            <h5 class="card-title"> {{car.name}} </h5>
+                            <span><i class="far fa-tire"></i> {{car.shiftType}} </span>
+                            <span class="ms-2"><i class="fas fa-fan"></i> {{car.isAirConditioning === 'yes' ? 'air conditioning'  :
+                                'not air conditioning'}} </span>
+                            <div>
+                                <span><i class="fas fa-map-marker-alt"></i>city: {{car.city}} </span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center">
+
+                            <span>Daily Rate</span>
+                            <div class='my-2 d-flex justify-content-center align-items-center'>
+                                <span class='me-2'>USD</span>
+                                <h5 class="m-0"> {{car.price}} </h5>
+                            </div>
+                            <a class="btn btn-primary">details</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content let-modal>
+    <app-add-car [modal]="modal"></app-add-car>
+</ng-template>
