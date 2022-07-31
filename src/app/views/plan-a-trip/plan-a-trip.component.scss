@@ -80,3 +80,23 @@
         }
     }
 }
+
+@media (max-width: 991px) {
+    .card-car {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        .car-details {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            img {
+                width: 240px;
+                height: 240px
+            }
+        }
+        .car-rate-details {
+            width: 100%;
+        }
+    }
+}
