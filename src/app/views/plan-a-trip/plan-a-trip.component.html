@@ -20,7 +20,8 @@
                         <i class="fa fa-chevron-up"></i>
                     </button>
                     <div class="collapse show ps-2" id="dayRateFilter">
-                        <ngx-slider formControlName="price" [options]="options" (valueChange)="filteration()"></ngx-slider>
+                        <ngx-slider formControlName="price" [options]="options" (valueChange)="filteration()">
+                        </ngx-slider>
                     </div>
                 </div>
 
@@ -107,7 +108,8 @@
                         <div class="col-md-6">
                             <h5 class="card-title"> {{car.name}} </h5>
                             <span><i class="far fa-tire"></i> {{car.shiftType}} </span>
-                            <span class="ms-2"><i class="fas fa-fan"></i> {{car.isAirConditioning === 'yes' ? 'air conditioning'  :
+                            <span class="ms-2"><i class="fas fa-fan"></i> {{car.isAirConditioning === 'yes' ? 'air
+                                conditioning' :
                                 'not air conditioning'}} </span>
                             <div>
                                 <span><i class="fas fa-map-marker-alt"></i>city: {{car.city}} </span>
@@ -120,10 +122,9 @@
                                 <span class='me-2'>USD</span>
                                 <h5 class="m-0"> {{car.price}} </h5>
                             </div>
-                            <a class="btn btn-primary">details</a>
+                            <button class="btn btn-primary" (click)="open(details);viewDetailsCarId=car.id">details</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -133,4 +134,8 @@
 
 <ng-template #content let-modal>
     <app-add-car [modal]="modal"></app-add-car>
+</ng-template>
+
+<ng-template #details let-modal>
+    <app-details-view [modal]="modal" [carId]="viewDetailsCarId"></app-details-view>
 </ng-template>

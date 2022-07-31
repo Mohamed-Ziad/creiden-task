@@ -153,6 +153,7 @@ export class PlanATripComponent implements OnInit {
   }
   //#region Add Car Modal Control Code
   closeResult = '';
+  viewDetailsCarId:string = "";
   open(content: any) {
     this.modalService
       .open(content, {
