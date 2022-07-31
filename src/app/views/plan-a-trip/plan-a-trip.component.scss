@@ -41,22 +41,6 @@
     }
 }
 
-.car-card {
-    img {
-        width: 120px;
-        height: 120px;
-    }
-    h5 {
-        font-weight: bold;
-    }
-    .col-md-3 {
-        height: 100%;
-        box-shadow: 0px 0px 6px #00000019;
-        padding: 1.5rem;
-        background-color: #FBFBFB;
-    }
-}
-
 .btn-reset {
     color: #4F6080;
     font-weight: bold;
@@ -65,4 +49,34 @@
 
 .collapse {
     padding-left: .5rem;
+    label {
+        color: #666D7B
+    }
+}
+
+.card-car {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background: #fff;
+    align-items: center;
+    .car-details {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        color: #666D7B;
+        img {
+            width: 120px;
+            height: 120px
+        }
+    }
+    .car-rate-details {
+        background-color: #FBFBFB;
+        padding: 2rem;
+        width: 175px;
+        text-align: center;
+        h5 {
+            font-weight: bold;
+        }
+    }
 }
