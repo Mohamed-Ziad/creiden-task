@@ -1,1 +1,81 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+    background: #f0f3f8;
+    text-transform: capitalize;
+}
+
+
+/* Importing Bootstrap SCSS file. */
+
+@import '~bootstrap/scss/bootstrap';
+.ngx-slider .ngx-slider-pointer {
+    background-color: #fff !important;
+    border: 1px solid #FE7D38 !important;
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 50% !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+}
+
+.ngx-slider .ngx-slider-pointer:after {
+    background-color: #FE7D38 !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 6px !important;
+    height: 6px !important;
+}
+
+.ngx-slider .ngx-slider-selection {
+    background-color: #FE7D38 !important;
+}
+
+.btn.btn-primary {
+    background-color: #FE7D38;
+    border-color: #FE7D38;
+}
+
+.form-check-input:checked {
+    background-color: #FE7D38;
+    border-color: #FE7D38;
+}
+
+.breadcrumb {
+    background: transparent;
+}
+
+.modal-header {
+    position: relative;
+    .btn-close {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+        transform: translateY(-50%);
+        border: 1px solid #898989;
+        padding: .5rem;
+        border-radius: 50%;
+    }
+}
+
+.form-label.required {
+    &::after {
+        content: " *";
+        color: #DB4955;
+    }
+}
+
+.form-control {
+    &::placeholder {
+        color: #ccc;
+        text-transform: capitalize;
+    }
+}
+
+button {
+    text-transform: capitalize;
+}
