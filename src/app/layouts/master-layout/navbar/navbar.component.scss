@@ -1,0 +1,41 @@
+.navbar-light.bg-light {
+    background-color: #FFF !important;
+    .navbar-brand {
+        img {
+            width: 100px;
+            display: block;
+            &:first-of-type {
+                margin-bottom: -.25rem;
+            }
+        }
+    }
+    .nav-link {
+        // border-bottom: 1px solid transparent;
+        color: #4F6080;
+        position: relative;
+        cursor: pointer;
+        margin: 0 .5rem;
+        &::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #DB4955;
+            opacity: 0;
+            transition: .3s;
+        }
+        &:hover {
+            &::before {
+                opacity: 1;
+            }
+        }
+        &.active {
+            font-weight: bold;
+            &::before {
+                opacity: 1;
+            }
+        }
+    }
+}
