@@ -11,12 +11,14 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddCarComponent } from './views/plan-a-trip/add-car/add-car.component';
+import { DetailsViewComponent } from './views/plan-a-trip/details-view/details-view.component';
 @NgModule({
   declarations: [
     AppComponent,
     PlanATripComponent,
     TopbarComponent,
-    AddCarComponent
+    AddCarComponent,
+    DetailsViewComponent
 
   ],
   imports: [
