@@ -13,12 +13,31 @@
                     reset all
                 </button>
                 <div class='clearfix'></div>
+
+
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <div class="collapse ps-2 show" id="airConditionFilter">
+                            <ng-container formArrayName="airConditioning">
+                                <ng-container *ngFor="let airConditioningForm of airConditioning.controls; let index = index">
+                                    <div class="form-check" [formGroupName]="index">
+                                        <input class="form-check-input" type="checkbox" (change)="filteration()" value="" id="airConditioning{{airConditioningForm.get('name')?.value}}" formControlName="selected">
+                                        <label class="form-check-label" for="airConditioning{{airConditioningForm.get('name')?.value}}">
+                                            {{airConditioningForm.get('name')?.value}}
+                                        </label>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+
                 <div class='mb-3'>
                     <button class="btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#dayRateFilter" aria-expanded="false" aria-controls="dayRateFilter">
                         Average Day Rate
                         <i class="fa fa-chevron-up"></i>
                     </button>
-                    <div class="collapse show" id="dayRateFilter">
+                    <div class="collapse show ps-2" id="dayRateFilter">
                         <ngx-slider formControlName="price" [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (valueChange)="filteration()"></ngx-slider>
                     </div>
                 </div>
@@ -28,7 +47,7 @@
                         Air Conditioning
                         <i class="fa fa-chevron-up"></i>
                     </button>
-                    <div class="collapse show" id="airConditionFilter">
+                    <div class="collapse show ps-2" id="airConditionFilter">
                         <ng-container formArrayName="airConditioning">
                             <ng-container *ngFor="let airConditioningForm of airConditioning.controls; let index = index">
                                 <div class="form-check" [formGroupName]="index">
@@ -45,11 +64,11 @@
 
 
                 <div class='mb-3'>
-                    <button class="btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#cityFilter" aria-expanded="false" aria-controls="cityFilter">
+                    <button class="btn-collapse " type="button" data-bs-toggle="collapse" data-bs-target="#cityFilter" aria-expanded="false" aria-controls="cityFilter">
                         City
                         <i class="fa fa-chevron-up"></i>
                     </button>
-                    <div class="collapse show" id="cityFilter">
+                    <div class="collapse show ps-2" id="cityFilter">
                         <ng-container formArrayName="cities">
                             <ng-container *ngFor="let cityForm of cities.controls; let index = index">
                                 <div class="form-check" [formGroupName]="index">
@@ -69,7 +88,7 @@
                         Shift Type
                         <i class="fa fa-chevron-up"></i>
                     </button>
-                    <div class="collapse show" id="shiftFilter">
+                    <div class="collapse show ps-2" id="shiftFilter">
                         <ng-container formArrayName="shiftType">
                             <ng-container *ngFor="let shiftTypeForm of shiftType.controls; let index = index">
                                 <div class="form-check" [formGroupName]="index">
