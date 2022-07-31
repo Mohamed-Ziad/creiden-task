@@ -132,10 +132,10 @@ export class PlanATripComponent implements OnInit {
     switch (sortType) {
       case this.SortTypes.ALPHABET:
         this.listOfCars.sort(function compare(a: ICar, b: ICar) {
-          if (a.name < b.name) {
+          if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) {
             return -1;
           }
-          if (a.name > b.name) {
+          if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) {
             return 1;
           }
           return 0;
@@ -150,6 +150,8 @@ export class PlanATripComponent implements OnInit {
       default:
         return;
     }
+    console.log({ sorts:this.listOfCars });
+    
   }
   //#region Add Car Modal Control Code
   closeResult = '';
