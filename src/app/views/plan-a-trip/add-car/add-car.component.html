@@ -11,7 +11,7 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
 </div>
 <div class="modal-body">
-    <form [formGroup]="addCarForm" (ngSubmit)="logForm()">
+    <form [formGroup]="addCarForm" (ngSubmit)="submit()">
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-3">
@@ -21,13 +21,13 @@
             </div>
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label for="dailyRate" class="form-label required">Daily Rate</label>
-                    <input formControlName="dailyRate" type="number" class="form-control form-control-lg shadow border-0" id="dailyRate" placeholder="25.00">
+                    <label for="price" class="form-label required">Daily Rate</label>
+                    <input formControlName="price" type="number" class="form-control form-control-lg shadow border-0" id="price" placeholder="25.00">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label for="formFile" class="form-label">car photo</label>
+                    <label for="formFile" class="form-label required">car photo</label>
                     <input class="" type="file" id="formFile" hidden (input)="uploadPhoto($event)">
                     <div>
                         <label for="formFile" class='btn btn-light border-0 shadow btn-lg'>upload</label>
@@ -45,18 +45,18 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <label for="dailyRate" class="form-label required">Transmission</label>
+                <label for="dailyRate" class="form-label required">shiftType</label>
 
                 <div class="d-flex ">
                     <div class="form-check ms-1">
-                        <input formControlName="transmission" class="form-check-input" type="radio" value="automatic" name="transmission" id="transmission1">
-                        <label class="form-check-label" for="transmission1">
+                        <input formControlName="shiftType" class="form-check-input" type="radio" value="automatic" name="shiftType" id="shiftType1">
+                        <label class="form-check-label" for="shiftType1">
                           Automatic
                       </label>
                     </div>
                     <div class="form-check ms-4">
-                        <input formControlName="transmission" class="form-check-input" type="radio" value="manual" name="transmission" id="transmission2">
-                        <label class="form-check-label" for="transmission2">
+                        <input formControlName="shiftType" class="form-check-input" type="radio" value="manual" name="shiftType" id="shiftType2">
+                        <label class="form-check-label" for="shiftType2">
                           Manual
                       </label>
                     </div>
@@ -67,21 +67,21 @@
 
                 <div class="d-flex ">
                     <div class="form-check ms-1">
-                        <input formControlName="airConditioning" class="form-check-input" type="radio" value="yes" name="airConditioning" id="airConditioning1">
-                        <label class="form-check-label" for="airConditioning1">
+                        <input formControlName="isAirConditioning" class="form-check-input" type="radio" value="yes" name="airConditioning" id="isAirConditioning1">
+                        <label class="form-check-label" for="isAirConditioning1">
                           yes
                       </label>
                     </div>
                     <div class="form-check ms-4">
-                        <input formControlName="airConditioning" class="form-check-input" type="radio" value="no" name="airConditioning" id="airConditioning2">
-                        <label class="form-check-label" for="airConditioning2">
+                        <input formControlName="isAirConditioning" class="form-check-input" type="radio" value="no" name="airConditioning" id="isAirConditioning2">
+                        <label class="form-check-label" for="isAirConditioning2">
                           no
                       </label>
                     </div>
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary w-100 mt-5" [disabled]="addCarForm.invalid">add
-          car</button>
+        <button type="submit" class="btn btn-primary w-100 mt-5" [disabled]="addCarForm.invalid">
+            add scar</button>
     </form>
 </div>
